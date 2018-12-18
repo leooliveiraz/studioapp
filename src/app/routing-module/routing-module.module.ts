@@ -6,6 +6,7 @@ import { ClientesComponent } from '../clientes/clientes.component';
 import { AuthGuard } from '../guard/auth-guard.service';
 import { AgendamentosComponent } from '../agendamentos/agendamentos.component';
 import { LogoutComponent } from '../logout/logout.component';
+import { ServicoComponent } from '../servico/servico.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: 'clientes', component: ClientesComponent , canActivate: [AuthGuard]  },
   { path: 'agendamentos', component: AgendamentosComponent , canActivate: [AuthGuard]  },
   { path: 'logout', component: LogoutComponent , canActivate: [AuthGuard]  },
+  { path: 'servicos', component: ServicoComponent , canActivate: [AuthGuard]  },
   { path: '', pathMatch: 'full', redirectTo: 'home' }
 ];
 @NgModule({

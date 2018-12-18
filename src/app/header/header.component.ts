@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     M.AutoInit();
+    const elem = document.querySelector('.sidenav');
+    const instance =  M.Sidenav.getInstance(elem, {dragabble: true} );
   }
 
   fechar() {

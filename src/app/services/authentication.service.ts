@@ -33,7 +33,7 @@ export class AuthenticationService {
 
   getToken() {
     const token = sessionStorage.getItem('token');
-    if (token.length === 0) {
+    if (token.length !== 0) {
       return token;
     } else {
       return null;

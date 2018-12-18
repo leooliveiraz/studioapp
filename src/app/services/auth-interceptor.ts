@@ -20,12 +20,13 @@ export class AuthInterceptor implements HttpInterceptor {
     if (request.url === `${ContextUtil.getApiUrl()}login`) {
       return next.handle(request);
     }
-    const token = localStorage.getItem('token');
+    const token = this.auth.getToken();
     const req: HttpRequest<any> = request.clone({
       setHeaders: {
         Authorization : `${token}`
       }
     });
+    console.log(`'adiciona header'${token}`);
     return next.handle(req);
   }
 

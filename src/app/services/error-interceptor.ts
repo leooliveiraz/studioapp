@@ -15,9 +15,10 @@ export class ErrorInterceptor implements HttpInterceptor {
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
       console.log('errorInterceptor');
         return next.handle(request).pipe(catchError(err => {
-            if (err.status === 401 && request.url !== `${ContextUtil.getApiUrl()}login` )  {
+            if ((err.status === 401 || err.status === 403) && request.url !== `${ContextUtil.getApiUrl()}login` )  {
               console.log(`erro : ${err.status}`);
               swal('Sua Sessão expirou', 'Por favor, faça login novamente', 'error');
+              // this.router.navigate(['logout']);
             }
 
             return throwError(err);

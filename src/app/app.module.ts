@@ -17,6 +17,8 @@ import { AuthenticationService } from './services/authentication.service';
 import { ContextUtil } from './guard/context-util.service';
 import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorInterceptor } from './services/error-interceptor';
+import { ServicoComponent } from './servico/servico.component';
+import { ServicoService } from './services/servico.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { ErrorInterceptor } from './services/error-interceptor';
     HomeComponent,
     ClientesComponent,
     AgendamentosComponent,
-    LogoutComponent
+    LogoutComponent,
+    ServicoComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,7 @@ import { ErrorInterceptor } from './services/error-interceptor';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationService, AuthGuard, ContextUtil,
+  providers: [AuthenticationService, AuthGuard, ContextUtil, ServicoService,
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true} ],
   bootstrap: [AppComponent]
