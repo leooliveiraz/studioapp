@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../login/authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 declare var $: any;
 declare var M: any;
 

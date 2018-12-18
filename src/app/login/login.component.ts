@@ -1,4 +1,4 @@
-import { AuthenticationService } from './authentication.service';
+import { AuthenticationService } from '../services/authentication.service';
 import { Usuario } from './../entity/usuario';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -16,11 +16,8 @@ export class LoginComponent implements OnInit {
   usuario: any = Usuario;
 
   ngOnInit() {
-    console.log('verificar se o token está valido');
-    // if (this.authService.estaAutenticado()) {
-      // this.router.navigate(['/home']);
-    // }
-   }
+
+  }
 
 
   onSubmit(form) {

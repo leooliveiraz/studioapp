@@ -8,12 +8,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { LoginComponent } from './login/login.component';
 import { AppRoutingModule } from './routing-module/routing-module.module';
-import { AuthenticationService } from './login/authentication.service';
 import { HomeComponent } from './home/home.component';
 import { ClientesComponent } from './clientes/clientes.component';
 import { AuthGuard } from './guard/auth-guard.service';
 import { AgendamentosComponent } from './agendamentos/agendamentos.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AuthenticationService } from './services/authentication.service';
+import { ContextUtil } from './guard/context-util.service';
+import { AuthInterceptor } from './services/auth-interceptor';
+import { ErrorInterceptor } from './services/error-interceptor';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,9 @@ import { LogoutComponent } from './logout/logout.component';
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [AuthenticationService, AuthGuard],
+  providers: [AuthenticationService, AuthGuard, ContextUtil,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true} ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
