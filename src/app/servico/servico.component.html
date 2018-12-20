@@ -1,23 +1,61 @@
 <h4>Serviços</h4>
+<br />
 
 <ul class="collapsible popout">
-  <li>
-    <div class="collapsible-header"><i class="material-icons">add</i>NOME DO SERVIÇO</div>
-    <div class="collapsible-body"><span>Alguma descrição qualquer do serviço</span></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">add</i>NOME DO SERVIÇO</div>
-    <div class="collapsible-body"><span>Alguma descrição qualquer do serviço</span></div>
-  </li>
-  <li>
-    <div class="collapsible-header"><i class="material-icons">add</i>NOME DO SERVIÇO</div>
-    <div class="collapsible-body"><span>Alguma descrição qualquer do serviço</span></div>
+  <li *ngFor="let item of servicos"  >
+    <div class="collapsible-header"><i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body">
+        <span><strong>Descrição:</strong> {{ item.descricao }}</span> <br />
+        <span><strong>Valor:</strong> {{ item.valor }}</span> <br />
+        <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
+        <br />
+        <a class="waves-effect waves-light btn-small right red" (click)="confirmarInativacao('')"><i class="material-icons left">cancel</i>Inativar</a>
+        <a class="waves-effect waves-light btn-small right blue"><i class="material-icons left">edit</i>Alterar</a>
+        <br />
+        <br />
+    </div>
   </li>
 </ul>
 
 <!-- Botão Menu-->
-<div class="fixed-action-btn " (click)="abreMenu()" >
-  <a class="btn-floating btn-large blue waves-effect  waves-light" >
+<div class="fixed-action-btn"  >
+  <a class="btn-floating btn-large blue waves-effect  waves-light" (click)='abrirModal()' >
     <i class="large material-icons ">add</i>
   </a>
+</div>
+
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <h4>Novo Serviço</h4>
+    <br />
+    <form  #f="ngForm" (ngSubmit)="onSubmitCadastro(f)" >
+      <div class="input-field col s12">
+        <i class="material-icons prefix">check</i>
+        <input id="nome" name="nome" type="text"  required [(ngModel)]="servico.nome">
+        <label for="nome">Nome</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">info</i>
+        <input id="descricao" name="descricao" type="text"  required [(ngModel)]="servico.descricao">
+        <label for="descricao">Descrição</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">attach_money</i>
+        <input id="valor" name="valor" type="number"  required [(ngModel)]="servico.valor" max="5000" min="0">
+        <label for="valor">Valor</label>
+      </div>
+
+
+      <input id="ativo" name="ativo" type="hidden"  required [(ngModel)]="servico.ativo" value='true'>
+
+      <button type="submit" class="btn waves btn-large right" [disabled]="!f.valid">Enviar</button>
+      <br />
+      <br />
+      <br />
+      <!-- <app-form-debug [form]="f"></app-form-debug> -->
+    </form>
+  </div>
 </div>

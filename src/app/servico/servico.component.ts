@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServicoService } from '../services/servico.service';
 import { Servico } from '../entity/servico';
+import swal from 'sweetalert2';
 declare var M: any;
 
 @Component({
@@ -9,20 +10,49 @@ declare var M: any;
   styleUrls: ['./servico.component.css']
 })
 export class ServicoComponent implements OnInit {
-  menu = null;
   servicos = null;
+  result = null;
+  servico: any = new Servico(null, '', '', null, true);
+  private modalCadastro = null;
 
   constructor(private servicoService: ServicoService) { }
 
-  abreMenu() {
-    const botao = document.querySelector('.fixed-action-btn');
-    const menu = M.FloatingActionButton.getInstance( botao );
-  }
-
   ngOnInit() {
     M.AutoInit();
-    this.servicoService.getServicos();
+    this.configuraModal();
+    this.carregarServicos();
   }
 
+  onSubmitCadastro(form) {
+    try {
+      const retorno = this.servicoService.inserir(JSON.stringify(form.value));
+      console.log(retorno);
+      swal('Serviço Salvo', '', 'success').then(res => this.modalCadastro.close());
+      this.carregarServicos();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  configuraModal() {
+    const elem = document.querySelector('.modal');
+    this.modalCadastro = M.Modal.getInstance(elem, {'dismissible': false});
+  }
+
+  abrirModal() {
+    this.modalCadastro.open();
+    this.servico = new Servico(null, '', '', null, true);
+    M.updateTextFields();
+  }
+
+
+  carregarServicos() {
+    this.servicoService.getServicos().then(res => {this.result = res; this.servicos = this.result._embedded.servico; });
+  }
+
+  confirmarInativacao(link) {
+    swal('Deseja Inativar esse registro?', '', 'info');
+  }
 
 }
