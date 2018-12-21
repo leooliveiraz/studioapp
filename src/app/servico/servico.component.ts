@@ -21,12 +21,18 @@ export class ServicoComponent implements OnInit {
     M.AutoInit();
     this.configuraModal();
     this.carregarServicos();
+    M.updateTextFields();
   }
 
   onSubmitCadastro(form) {
     try {
-      const retorno = this.servicoService.inserir(JSON.stringify(form.value));
-      console.log(retorno);
+      if(form._links){
+        const retorno = this.servicoService.inserir(JSON.stringify(form.value));
+        console.log(retorno);
+      } else {
+        const retorno = this.servicoService.alterar(form.value);
+        console.log(retorno);
+      }
       swal('Serviço Salvo', '', 'success').then(res => this.modalCadastro.close());
       this.carregarServicos();
 
@@ -46,13 +52,31 @@ export class ServicoComponent implements OnInit {
     M.updateTextFields();
   }
 
+  abrirModalEdicao(servico) {
+    this.modalCadastro.open();
+    this.servico = servico;
+    M.updateTextFields();
+  }
+  
+  confirmarInativacao(servico) {
+    swal({ title: 'Deseja Inativar esse registro?',
+           text:  '' , 
+           type: 'warning' ,
+          showCancelButton: true ,
+          confirmButtonText: 'Sim',
+          cancelButtonText: 'Não'})
+          .then(res=>
+            {
+              if(res.value){
+                this.servicoService.inativar(servico);
+                swal('Serviço excluído.','' , 'success');
+              }  
+            }
+          );
+  }
 
   carregarServicos() {
     this.servicoService.getServicos().then(res => {this.result = res; this.servicos = this.result._embedded.servico; });
-  }
-
-  confirmarInativacao(link) {
-    swal('Deseja Inativar esse registro?', '', 'info');
   }
 
 }

@@ -26,7 +26,6 @@ export class AuthInterceptor implements HttpInterceptor {
         Authorization : `${token}`
       }
     });
-    console.log(`'adiciona header'${token}`);
     return next.handle(req);
   }
 

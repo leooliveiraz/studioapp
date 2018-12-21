@@ -19,7 +19,8 @@ export class ErrorInterceptor implements HttpInterceptor {
               console.log(`erro : ${err.status}`);
               swal('Sua Sessão expirou', 'Por favor, faça login novamente', 'error').then(e => this.router.navigate(['logout']));
             }
-
+            console.log(`erro : ${err.status}`);
+              
             return throwError(err);
         }));
     }

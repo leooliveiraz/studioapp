@@ -7,23 +7,36 @@ import { Servico } from '../entity/servico';
   providedIn: 'root'
 })
 export class ServicoService implements OnInit {
-
+  
   constructor(private http: HttpClient) { }
-
+  
   async getServicos() {
     const servicos = await this.http.get<Servico[]>(`${ContextUtil.getApiUrl()}servico`, {responseType: 'json'}).toPromise();
     return servicos;
   }
-
+  
+  async alterar(servico) {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    const result = await this.http.put(`${servico._links.self.href}`,
+                    JSON.stringify(servico), {headers: headers}).toPromise();
+    return result;
+  }
 
   async inserir(servico) {
-    console.log(servico);
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const result = await this.http.post(`${ContextUtil.getApiUrl()}servico`,
                     servico, {headers: headers}).toPromise();
     return result;
   }
 
+  async inativar(servico) {
+    servico.ativo = false;
+    console.log(servico);
+    const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    const result = await this.http.put(servico._links.self.href, 
+                    JSON.stringify(servico),  {headers: headers}).toPromise();
+    return result;
+  }
 
   ngOnInit(): void { }
 }

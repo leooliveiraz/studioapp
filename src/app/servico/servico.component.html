@@ -1,16 +1,17 @@
 <h4>Serviços</h4>
 <br />
+<span *ngIf="servicos.length === 0" >Não há nenhum registro no momento :)</span>
 
-<ul class="collapsible popout">
+<ul class="collapsible popout"  >
   <li *ngFor="let item of servicos"  >
-    <div class="collapsible-header"><i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
-    <div class="collapsible-body">
+    <div class="collapsible-header" [ngClass]="{'red': !item.ativo}"> <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body" [ngClass]="{'red': !item.ativo}">
         <span><strong>Descrição:</strong> {{ item.descricao }}</span> <br />
         <span><strong>Valor:</strong> {{ item.valor }}</span> <br />
         <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
         <br />
-        <a class="waves-effect waves-light btn-small right red" (click)="confirmarInativacao('')"><i class="material-icons left">cancel</i>Inativar</a>
-        <a class="waves-effect waves-light btn-small right blue"><i class="material-icons left">edit</i>Alterar</a>
+        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" (click)="confirmarInativacao(item)"><i class="material-icons left">cancel</i>Inativar</a>
+        <a class="waves-effect waves-light btn-small right blue" [ngClass]="{'hide': !item.ativo}" (click)="abrirModalEdicao(item) "  ><i class="material-icons left">edit</i>Alterar</a>
         <br />
         <br />
     </div>
