@@ -10,10 +10,11 @@ declare var M: any;
   styleUrls: ['./servico.component.css']
 })
 export class ServicoComponent implements OnInit {
-  servicos = null;
+  servicos = [];
   result = null;
   servico: any = new Servico(null, '', '', null, true);
   private modalCadastro = null;
+  private modalEdicao = null;
 
   constructor(private servicoService: ServicoService) { }
 
@@ -26,13 +27,7 @@ export class ServicoComponent implements OnInit {
 
   onSubmitCadastro(form) {
     try {
-      if(form._links){
         const retorno = this.servicoService.inserir(JSON.stringify(form.value));
-        console.log(retorno);
-      } else {
-        const retorno = this.servicoService.alterar(form.value);
-        console.log(retorno);
-      }
       swal('Serviço Salvo', '', 'success').then(res => this.modalCadastro.close());
       this.carregarServicos();
 
@@ -41,9 +36,22 @@ export class ServicoComponent implements OnInit {
     }
   }
 
+  onSubmitEdicao(form) {
+    try {
+      const retorno = this.servicoService.alterar(form.value);
+      swal('Serviço Salvo', '', 'success').then(res => this.modalEdicao.close());
+      this.carregarServicos();
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   configuraModal() {
-    const elem = document.querySelector('.modal');
+    const elem = document.querySelector('#modal1');
     this.modalCadastro = M.Modal.getInstance(elem, {'dismissible': false});
+    const elem2 = document.querySelector('#modal2');
+    this.modalEdicao = M.Modal.getInstance(elem2, {'dismissible': false});
   }
 
   abrirModal() {
@@ -53,26 +61,26 @@ export class ServicoComponent implements OnInit {
   }
 
   abrirModalEdicao(servico) {
-    this.modalCadastro.open();
+    this.modalEdicao.open();
     this.servico = servico;
+
     M.updateTextFields();
   }
-  
+
   confirmarInativacao(servico) {
     swal({ title: 'Deseja Inativar esse registro?',
-           text:  '' , 
-           type: 'warning' ,
-          showCancelButton: true ,
-          confirmButtonText: 'Sim',
-          cancelButtonText: 'Não'})
-          .then(res=>
-            {
-              if(res.value){
-                this.servicoService.inativar(servico);
-                swal('Serviço excluído.','' , 'success');
-              }  
+          text:  '' ,
+          type: 'warning' ,
+        showCancelButton: true ,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'})
+        .then(res => {
+            if (res.value) {
+              this.servicoService.inativar(servico);
+              swal('Serviço excluído.', '', 'success');
             }
-          );
+          }
+        );
   }
 
   carregarServicos() {

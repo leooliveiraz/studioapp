@@ -60,3 +60,40 @@
     </form>
   </div>
 </div>
+
+
+<div id="modal2" class="modal">
+  <div class="modal-content">
+    <h4>Alteração Serviço</h4>
+    <br />
+    <form  #f="ngForm" (ngSubmit)="onSubmitEdicao(f)" >
+      <div class="input-field col s12">
+        <i class="material-icons prefix">check</i>
+        <input id="nome2" name="nome" type="text"  required [(ngModel)]="servico.nome">
+        <label for="nome2" class="active">Nome</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">info</i>
+        <input id="descricao2" name="descricao" type="text"  required [(ngModel)]="servico.descricao">
+        <label for="descricao2" class="active">Descrição</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">attach_money</i>
+        <input id="valor2" name="valor" type="number"  required [(ngModel)]="servico.valor" max="5000" min="0">
+        <label for="valor2" class="active">Valor</label>
+      </div>
+
+
+      <input id="ativo2" name="ativo" type="hidden"  required [(ngModel)]="servico.ativo" />
+      <input id="link" name='link' type="hidden" required [(ngModel)]="servico._links?.self.href" />
+
+      <button type="submit" class="btn waves btn-large right" [disabled]="!f.valid">Enviar</button>
+      <!-- <app-form-debug [form]="f"></app-form-debug> -->
+      <br />
+      <br />
+      <br />
+    </form>
+  </div>
+</div>
