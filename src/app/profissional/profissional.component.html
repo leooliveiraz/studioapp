@@ -1,0 +1,22 @@
+<h4>Profissionais</h4>
+<br />
+<!-- Botão Menu-->
+<div class="fixed-action-btn"  >
+  <a class="btn-floating btn-large blue waves-effect  waves-light"  >
+    <i class="large material-icons ">add</i>
+  </a>
+</div>
+
+<!-- -->
+<ul class="collapsible popout"  >
+  <li *ngIf="profissionais.length === 0 || profissionais == null">
+      <div class="collapsible-header" > <i class="material-icons">add</i> <strong> Nenhum dado encontrado </strong> </div>
+  </li>
+  <li *ngFor="let item of profissionais"  >
+    <div class="collapsible-header" [ngClass]="{'red': !item.ativo}"> <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body" [ngClass]="{'red': !item.ativo}">
+        <br />
+        <br />
+    </div>
+  </li>
+</ul>

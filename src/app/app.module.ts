@@ -19,6 +19,7 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import { ErrorInterceptor } from './services/error-interceptor';
 import { ServicoComponent } from './servico/servico.component';
 import { ServicoService } from './services/servico.service';
+import { ProfissionalComponent } from './profissional/profissional.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ServicoService } from './services/servico.service';
     AgendamentosComponent,
     LogoutComponent,
     ServicoComponent,
+    ProfissionalComponent,
   ],
   imports: [
     BrowserModule,
