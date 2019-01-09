@@ -15,14 +15,14 @@ export class ProfissionalComponent implements OnInit {
   profissional = null;
   profissionais = [];
   modalCadastro = null;
-  result = null;
 
 
   constructor(private profissionalService: ProfissionalService) { }
 
   carregarProfissionais() {
-    this.profissionalService.getProfissionais().then(res => { this.result = res;
-        this.profissionais = this.result._embedded.profissional; });
+    let result = null;
+    this.profissionalService.getProfissionais().then(res => { result = res;
+        this.profissionais = result._embedded.profissional; });
   }
 
   botaoAdicionar() {
