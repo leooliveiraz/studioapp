@@ -8,6 +8,7 @@ import { AgendamentosComponent } from '../agendamentos/agendamentos.component';
 import { LogoutComponent } from '../logout/logout.component';
 import { ServicoComponent } from '../servico/servico.component';
 import { ProfissionalComponent } from '../profissional/profissional.component';
+import { FormaPagamentoComponent } from '../forma-pagamento/forma-pagamento.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent , canActivate: [AuthGuard]  },
   { path: 'servicos', component: ServicoComponent , canActivate: [AuthGuard]  },
   { path: 'profissional', component: ProfissionalComponent , canActivate: [AuthGuard]  },
+  { path: 'formadepagamento', component: FormaPagamentoComponent , canActivate: [AuthGuard]  },
   { path: '', pathMatch: 'full', redirectTo: 'home' }
 ];
 @NgModule({

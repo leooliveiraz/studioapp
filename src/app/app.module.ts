@@ -20,6 +20,7 @@ import { ErrorInterceptor } from './services/error-interceptor';
 import { ServicoComponent } from './servico/servico.component';
 import { ServicoService } from './services/servico.service';
 import { ProfissionalComponent } from './profissional/profissional.component';
+import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ProfissionalComponent } from './profissional/profissional.component';
     LogoutComponent,
     ServicoComponent,
     ProfissionalComponent,
+    FormaPagamentoComponent,
   ],
   imports: [
     BrowserModule,

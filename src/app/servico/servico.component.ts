@@ -3,6 +3,7 @@ import { ServicoService } from '../services/servico.service';
 import { Servico } from '../entity/servico';
 import swal from 'sweetalert2';
 declare var M: any;
+declare var $: any;
 
 @Component({
   selector: 'app-servico',

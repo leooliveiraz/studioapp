@@ -1,0 +1,22 @@
+<h4>Formas de Pagamento</h4>
+
+<br />
+<ul class="collapsible popout"  >
+  <li *ngFor="let item of formaspagamento"  >
+    <div class="collapsible-header" > <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body"  >
+        <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
+        <br />
+        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" ><i class="material-icons left">cancel</i>Inativar</a>
+        <br />
+        <br />
+    </div>
+  </li>
+</ul>
+
+<!-- Botão Menu-->
+<div class="fixed-action-btn"  >
+  <a class="btn-floating btn-large blue waves-effect  waves-light" (click)='abrirModal()' >
+    <i class="large material-icons ">add</i>
+  </a>
+</div>
