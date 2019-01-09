@@ -16,15 +16,15 @@ export class ProfissionalService  {
   }
 
   async alterar(profissional) {
-    console.log(JSON.stringify(profissional));
+    console.log('alterar');
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const result = await this.http.put(`${profissional.link}`,
                     JSON.stringify(profissional), {headers: headers}).toPromise();
-    console.log(result);
     return result;
   }
 
   async inserir(profissional) {
+    console.log('inserir');
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const result = await this.http.post(`${ContextUtil.getApiUrl()}profissional`,
                     profissional, {headers: headers}).toPromise();

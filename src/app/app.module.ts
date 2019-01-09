@@ -21,6 +21,7 @@ import { ServicoComponent } from './servico/servico.component';
 import { ServicoService } from './services/servico.service';
 import { ProfissionalComponent } from './profissional/profissional.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
+import { CampoVazioPipe } from './pipes/campo-vazio.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.compo
     ServicoComponent,
     ProfissionalComponent,
     FormaPagamentoComponent,
+    CampoVazioPipe,
   ],
   imports: [
     BrowserModule,
