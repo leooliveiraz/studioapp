@@ -4,7 +4,6 @@ import { ProfissionalService } from '../services/profissional.service';
 
 import swal from 'sweetalert2';
 declare var M: any;
-declare var $: any;
 @Component({
   selector: 'app-profissional',
   templateUrl: './profissional.component.html',
@@ -24,11 +23,6 @@ export class ProfissionalComponent implements OnInit {
   carregarProfissionais() {
     this.profissionalService.getProfissionais().then(res => { this.result = res;
         this.profissionais = this.result._embedded.profissional; });
-  }
-
-
-  gerarUsuario() {
-
   }
 
   botaoAdicionar() {

@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
+import { ProfissionalService } from '../services/profissional.service';
 
-import { ProfissionalService } from './profissional.service';
 
 describe('ProfissionalService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
