@@ -11,16 +11,13 @@ export class FormaPagamentoService {
 
   async getFormasPagamento() {
     const formaPagamento = await this.http.get(`${ContextUtil.getApiUrl()}formapagamento`, {responseType: 'json'}).toPromise();
-    console.log(formaPagamento);
     return formaPagamento;
   }
 
   async alterar(formapagamento) {
-    console.log(JSON.stringify(formapagamento));
     const headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const result = await this.http.put(`${formapagamento.link}`,
                     JSON.stringify(formapagamento), {headers: headers}).toPromise();
-    console.log(result);
     return result;
   }
 

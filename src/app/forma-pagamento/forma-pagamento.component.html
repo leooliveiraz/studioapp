@@ -1,13 +1,16 @@
 <h4>Formas de Pagamento</h4>
 
 <br />
+<span *ngIf="formasPagamento.length === 0" >Não há nenhum registro no momento :)</span>
+
 <ul class="collapsible popout"  >
-  <li *ngFor="let item of formaspagamento"  >
-    <div class="collapsible-header" > <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
-    <div class="collapsible-body"  >
+  <li *ngFor="let item of formasPagamento"  >
+    <div class="collapsible-header" [ngClass]="{'red': !item.ativo}" > <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body"  [ngClass]="{'red': !item.ativo}" >
         <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
         <br />
-        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" ><i class="material-icons left">cancel</i>Inativar</a>
+        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" (click)="confirmarInativacao(item)" >
+          <i class="material-icons left">cancel</i>Inativar</a>
         <br />
         <br />
     </div>
@@ -15,8 +18,38 @@
 </ul>
 
 <!-- Botão Menu-->
-<div class="fixed-action-btn"  >
-  <a class="btn-floating btn-large blue waves-effect  waves-light" (click)='abrirModal()' >
+<div class="fixed-action-btn" (click)="botaoAdicionar()" >
+  <a class="btn-floating btn-large blue waves-effect  waves-light"  >
     <i class="large material-icons ">add</i>
   </a>
+</div>
+
+
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <div *ngIf="formaPagamento._links?.self.href">
+      <h4>Alterar Forma de Pagamento</h4>
+    </div>
+    <div *ngIf="!formaPagamento._links?.self.href">
+      <h4>Nova Forma de Pagamento</h4>
+    </div>
+
+    <br />
+    <form  #f="ngForm" (ngSubmit)="salvar(f)" >
+      <div class="input-field col s12">
+        <i class="material-icons prefix">check</i>
+        <input id="nome" name="nome" type="text"  required [(ngModel)]="formaPagamento.nome">
+        <label for="nome" [ngClass]="formaPagamento?.nome | campoVazio" >Nome</label>
+      </div>
+
+      <input id="ativo" name="ativo" type="hidden"  required [(ngModel)]="formaPagamento.ativo" >
+      <input id="link" name="link" type="hidden"  required [(ngModel)]="formaPagamento._links?.self.href" *ngIf="formaPagamento._links?.self.href" >
+
+      <button type="submit" class="btn waves btn-large right" [disabled]="!f.valid">Enviar</button>
+      <br />
+      <br />
+      <br />
+    </form>
+  </div>
 </div>
