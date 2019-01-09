@@ -17,7 +17,7 @@
         <span><strong>Descrição:</strong> {{ item.descricao }}</span> <br />
         <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
         <br />
-        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" ><i class="material-icons left">cancel</i>Inativar</a>
+        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" (click)="confirmarInativacao(item)" ><i class="material-icons left">cancel</i>Inativar</a>
         <a class="waves-effect waves-light btn-small right blue" [ngClass]="{'hide': !item.ativo}" (click)="botaoEditar(item)"  ><i class="material-icons left">edit</i>Alterar</a>
         <br />
         <br />
@@ -55,7 +55,7 @@
       <br />
       <br />
       <br />
-      <app-form-debug [form]="f"></app-form-debug>
+      <!-- <app-form-debug [form]="f"></app-form-debug> -->
     </form>
   </div>
 </div>

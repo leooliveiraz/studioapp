@@ -42,13 +42,17 @@ export class ProfissionalComponent implements OnInit {
   }
 
   salvarProfissional(form) {
-    if ( !this.profissional._links.self.href) {
+    if ( !this.profissional._links) {
       const retorno = this.profissionalService.inserir(JSON.stringify(form.value));
     } else {
       const retorno = this.profissionalService.alterar(form.value);
     }
     this.carregarProfissionais();
-    swal('Serviço Salvo', '', 'success').then(res => this.modalCadastro.close());
+    swal('Serviço Salvo', '', 'success')
+      .then(res => {
+          this.modalCadastro.close();
+          this.carregarProfissionais();
+        } );
   }
 
   configuraModal() {
@@ -63,5 +67,20 @@ export class ProfissionalComponent implements OnInit {
     this.carregarProfissionais();
   }
 
+  confirmarInativacao(servico) {
+    swal({ title: 'Deseja Inativar esse registro?',
+          text:  '' ,
+          type: 'warning' ,
+        showCancelButton: true ,
+        confirmButtonText: 'Sim',
+        cancelButtonText: 'Não'})
+        .then(res => {
+            if (res.value) {
+              this.profissionalService.inativar(servico);
+              swal('Profissional excluído.', '', 'success');
+            }
+          }
+        );
+  }
 
 }
