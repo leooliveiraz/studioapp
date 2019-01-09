@@ -66,7 +66,7 @@
   <div class="modal-content">
     <h4>Alteração Serviço</h4>
     <br />
-    <form  #f="ngForm" (ngSubmit)="onSubmitEdicao(f)" >
+    <form  #form="ngForm" (ngSubmit)="onSubmitEdicao(form)" >
       <div class="input-field col s12">
         <i class="material-icons prefix">check</i>
         <input id="nome2" name="nome" type="text"  required [(ngModel)]="servico.nome">
