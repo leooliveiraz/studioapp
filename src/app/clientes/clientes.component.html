@@ -1,3 +1,74 @@
-<p>
-  clientes works!
-</p>
+<h4>Clientes</h4>
+<br />
+<span *ngIf="clientes.length === 0" >Não há nenhum registro no momento :)</span>
+
+<!-- Botão Menu-->
+<div class="fixed-action-btn"  (click)="botaoAdicionar()" >
+  <a class="btn-floating btn-large blue waves-effect  waves-light"  >
+    <i class="large material-icons ">add</i>
+  </a>
+</div>
+
+
+<ul class="collapsible popout"  >
+  <li *ngFor="let item of clientes"  >
+    <div class="collapsible-header" [ngClass]="{'red': !item.ativo}"> <i class="material-icons">add</i> <strong> {{ item.nome }} </strong> </div>
+    <div class="collapsible-body" [ngClass]="{'red': !item.ativo}">
+        <span><strong>Descrição:</strong> {{ item.descricao }}</span> <br />
+        <span><strong>Ativo:</strong> {{ item.ativo ? 'Sim':'Não' }}</span>
+        <br />
+        <a class="waves-effect waves-light btn-small right red" [ngClass]="{'hide': !item.ativo}" (click)="confirmarInativacao(item)" ><i class="material-icons left">cancel</i>Inativar</a>
+        <a class="waves-effect waves-light btn-small right blue" [ngClass]="{'hide': !item.ativo}" (click)="botaoEditar(item)"  ><i class="material-icons left">edit</i>Alterar</a>
+        <br />
+        <br />
+    </div>
+  </li>
+</ul>
+
+
+<div id="modal1" class="modal">
+  <div class="modal-content">
+    <div *ngIf="cliente._links?.self.href">
+      <h4>Alterar Cliente</h4>
+    </div>
+    <div *ngIf="!cliente._links?.self.href">
+      <h4>Novo Cliente</h4>
+    </div>
+
+    <br />
+    <form  #f="ngForm" (ngSubmit)="salvar(f)" >
+      <div class="input-field col s12">
+        <i class="material-icons prefix">person</i>
+        <input id="nome" name="nome" type="text"  required [(ngModel)]="cliente.nome">
+        <label for="nome" [ngClass]="cliente?.nome | campoVazio" >Nome</label>
+      </div>
+
+      <div class="input-field col s12">
+        <i class="material-icons prefix">insert_comment</i>
+        <textarea id="descricao" name="descricao" class="materialize-textarea" [(ngModel)]="cliente.descricao" rows="4" cols="70" ></textarea>
+        <label for="descricao" [ngClass]="cliente?.nome | campoVazio">Descrição</label>
+      </div>
+      <div class="input-field col s12">
+          <i class="material-icons prefix">smartphone</i>
+          <input id="contato" name="contato" type="text"  required [(ngModel)]="cliente.contato">
+          <label for="contato" [ngClass]="cliente?.contato | campoVazio" >Contato</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">radio_button_checked</i>
+        <select [(ngModel)]="cliente.preencheuAnamnese" name="preencheuAnamnese" id="preencheuAnamnese">
+          <option value='true'>Sim</option>
+          <option value='false' selected>Não</option>
+        </select>
+        <label>Materialize Select</label>
+      </div>
+
+      <input id="ativo" name="ativo" type="hidden"  required [(ngModel)]="cliente.ativo" >
+      <input id="link" name="link" type="hidden"  required [(ngModel)]="cliente._links?.self.href" *ngIf="cliente._links?.self.href" >
+
+      <button type="submit" class="btn waves btn-large right" [disabled]="!f.valid">Enviar</button>
+      <br />
+      <br />
+      <br />
+    </form>
+  </div>
+</div>
