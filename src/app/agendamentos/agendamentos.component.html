@@ -2,17 +2,53 @@
 <br />
 <!-- <span *ngIf="servicos.length === 0" >Não há nenhum registro no momento :)</span> -->
 <!-- Botão Menu-->
-<div class="fixed-action-btn"  >
-  <a class="btn-floating btn-large blue waves-effect  waves-light" (click)='botaoAdicionar()' >
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large blue waves-effect  waves-light" (click)='botaoAdicionar()'>
     <i class="large material-icons ">add</i>
   </a>
 </div>
 
+<span *ngFor="let item of profissionais">
+  {{ item.nome }} <br>
+</span>
+<br>
+
 
 <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Novo Agendamento</h4>
+  <div class="modal-content">
+    <h4>Novo Agendamento</h4>
+    <br />
+
+    <form #f="ngForm" (ngSubmit)="salvar(f)">
+      <div class="input-field col s12" >
+        <i class="material-icons prefix">account_circle</i>
+        <select required [(ngModel)]="agendamento.profissional" name="profissional" id="profissional">
+          <option  disabled selected>Escolha o Profissional</option>
+          <option *ngFor="let p of profissionais" [value]="p" > {{ p.nome }} </option>
+        </select>
+        <label>Selecione um profissional</label>
+      </div>
+      <div class="input-field col s12" >
+        <i class="material-icons prefix">business_center</i>
+        <select required [(ngModel)]="agendamento.servico" name="servico" id="servico">
+          <option  disabled selected>Escolha o Serviço</option>
+          <option *ngFor="let s of servicos" [value]="s" > {{ s.nome }} </option>
+        </select>
+        <label>Selecione um serviço</label>
+      </div>
+      <div class="input-field col s12">
+        <i class="material-icons prefix">mood</i>
+        <input type="text" id="autocomplete-input" class="autocomplete">
+        <label for="autocomplete-input">Cliente</label>
+      </div>
+      <br />
+      Valor:
+      <br />
+      Forma de Pagamento:
       <br />
 
-    </div>
+
+      <app-form-debug [form]="f"></app-form-debug>
+    </form>
   </div>
+</div>

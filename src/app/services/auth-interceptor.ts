@@ -6,27 +6,34 @@ import {
   HttpEvent
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
 import { AuthenticationService } from './authentication.service';
 import { Router } from '@angular/router';
 import { ContextUtil } from '../guard/context-util.service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private auth: AuthenticationService , private router: Router) { }
+  constructor(private auth: AuthenticationService , private router: Router , private ngxService: NgxUiLoaderService) { }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (request.url === `${ContextUtil.getApiUrl()}login`) {
-      return next.handle(request);
-    }
-    const token = this.auth.getToken();
-    const req: HttpRequest<any> = request.clone({
-      setHeaders: {
-        Authorization : `${token}`
+    try {
+      if (request.url === `${ContextUtil.getApiUrl()}login`) {
+        return next.handle(request);
       }
-    });
-    return next.handle(req);
+      const token = this.auth.getToken();
+      const req: HttpRequest<any> = request.clone({
+        setHeaders: {
+          Authorization : `${token}`
+        }
+      });
+      return next.handle(req);
+    } catch (error) {
+      console.log(error);
+      return next.handle(request);
+    } finally {
+      this.ngxService.stop();
+    }
   }
 
 }

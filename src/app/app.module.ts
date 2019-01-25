@@ -22,6 +22,35 @@ import { ServicoService } from './services/servico.service';
 import { ProfissionalComponent } from './profissional/profissional.component';
 import { FormaPagamentoComponent } from './forma-pagamento/forma-pagamento.component';
 import { CampoVazioPipe } from './pipes/campo-vazio.pipe';
+import { NgxUiLoaderModule, NgxUiLoaderHttpModule, NgxUiLoaderConfig, POSITION } from 'ngx-ui-loader';
+
+const ngxUiLoaderConfig: NgxUiLoaderConfig = {
+  'bgsColor': '#00ACC1',
+  'bgsOpacity': 0.5,
+  'bgsPosition': 'center-center',
+  'bgsSize': 60,
+  'bgsType': 'cube-grid',
+  'blur': 5,
+  'fgsColor': '#00ACC1',
+  'fgsPosition': 'center-center',
+  'fgsSize': 60,
+  'fgsType': 'cube-grid',
+  'gap': 24,
+  'logoPosition': 'center-center',
+  'logoSize': 120,
+  'logoUrl': '',
+  'masterLoaderId': 'master',
+  'overlayBorderRadius': '0',
+  'overlayColor': 'rgba(93,121,117,0.8)',
+  'pbColor': '#00ACC1',
+  'pbDirection': 'ltr',
+  'pbThickness': 3,
+  'hasProgressBar': true,
+  'text': 'Carregando',
+  'textColor': '#FFFFFF',
+  'textPosition': 'center-center',
+  'threshold': 500
+};
 
 @NgModule({
   declarations: [
@@ -42,6 +71,8 @@ import { CampoVazioPipe } from './pipes/campo-vazio.pipe';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgxUiLoaderModule.forRoot(ngxUiLoaderConfig),
+    NgxUiLoaderHttpModule,
     AppRoutingModule
   ],
   providers: [AuthenticationService, AuthGuard, ContextUtil, ServicoService,

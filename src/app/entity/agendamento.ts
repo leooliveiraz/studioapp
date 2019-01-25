@@ -1,5 +1,6 @@
 import { FormaPagamento } from './formapagamento';
 import { Cliente } from './cliente';
+import { Profissional } from './profissional';
 
 export class Agendamento {
   constructor(
@@ -8,6 +9,7 @@ export class Agendamento {
       public ativo: boolean,
       public pago: boolean,
       public cliente: Cliente,
-      public formaPagamento: FormaPagamento
+      public formaPagamento: FormaPagamento,
+      public profissional: Profissional
   ) {}
 }
